@@ -10,10 +10,10 @@ public class GameManager : Singleton<GameManager>
 {
     [Required]
     public GameParameters parameters;
-    public LevelParameters levelParameters;
+    public List<LevelParameters> levelParameters;
     public BoardHandler boardHandler;
+    public LevelParameters currentLevel;
 
-    private LevelParameters _currentLevel;
     private ITransitionHandler _transitionHandler;
     private string _nextScene;
     
@@ -54,5 +54,11 @@ public class GameManager : Singleton<GameManager>
     public void GameStart()
     {
         _transitionHandler.FadeOut(EventManager.GameStart);
+    }
+
+    public void SetNextLevel(int levelID)
+    {
+        var validID = levelID % levelParameters.Count;
+        currentLevel = levelParameters[validID];
     }
 }

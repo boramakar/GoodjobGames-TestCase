@@ -20,3 +20,10 @@ MonoBehaviour:
   - {fileID: 3357980939067485681, guid: 6442d5500de29684f92421050585a2f0, type: 3}
   - {fileID: 3357980939067485681, guid: cc3990ca704f6e744a15aa19533061b7, type: 3}
   - {fileID: 3357980939067485681, guid: c3128b44aa36f0441af81c185e009df2, type: 3}
+  borderSizeX: 2.82
+  borderSizeY: 2.82
+  borderOffsetX: 0.64
+  borderOffsetY: 0.64
+  tileOffsetX: 1.12
+  tileOffsetY: 1.1
+  tileOffsetZ: -0.01
