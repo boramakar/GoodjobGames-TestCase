@@ -15,6 +15,11 @@ public class PlayButton : MonoBehaviour
         _gameManager = GameManager.Instance;
     }
 
+    private void Start()
+    {
+        _gameManager._transitionHandler.FadeOut(null);
+    }
+
     public void OnClick()
     {
         _gameManager.SetNextLevel(Int32.Parse(inputField.text));

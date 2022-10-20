@@ -14,14 +14,18 @@ public class GameManager : Singleton<GameManager>
     public BoardHandler boardHandler;
     public LevelParameters currentLevel;
 
-    private ITransitionHandler _transitionHandler;
+    public ITransitionHandler _transitionHandler;
     private string _nextScene;
     
     private void Awake()
     {
-        if (FindObjectOfType<GameManager>() != this)
+        if (FindObjectsOfType<GameManager>().Length > 1)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this);
         }
 
         _transitionHandler = GetComponentInChildren<ITransitionHandler>();
