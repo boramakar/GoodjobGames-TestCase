@@ -42,6 +42,7 @@ namespace HappyTroll
                 obj = Instantiate(poolObject);
             }
 
+            obj.GetComponent<IPoolObject>().Enable();
             return obj;
         }
 

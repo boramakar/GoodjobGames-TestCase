@@ -14,4 +14,7 @@ public class GameParameters : ScriptableObject
     public float tileOffsetX = 1.12f;
     public float tileOffsetY = 1.1f;
     public float tileOffsetZ = -0.01f;
+    public float cameraSizeBase = 5f;
+    public float cameraSizeOffset = 2.5f;
+    public float tileMoveSpeed = 3.3f;
 }

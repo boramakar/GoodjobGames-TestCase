@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
     [Required]
     public GameParameters parameters;
     public List<LevelParameters> levelParameters;
-    public BoardHandler boardHandler;
     public LevelParameters currentLevel;
 
     public ITransitionHandler _transitionHandler;

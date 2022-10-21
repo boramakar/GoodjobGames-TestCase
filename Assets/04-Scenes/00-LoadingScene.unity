@@ -505,7 +505,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameters: {fileID: 11400000, guid: fad5c7b8ed9626848a0f091982806917, type: 2}
   levelParameters:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a67a268a87ba0474a997881adc671c31, type: 2}
+  - {fileID: 11400000, guid: 3373230177a21794a88ee87a91e2f621, type: 2}
+  - {fileID: 11400000, guid: ae94de81e69d3d54498969f9e2784972, type: 2}
+  - {fileID: 11400000, guid: 6c668dceacdbbe4449dc6041381e926e, type: 2}
+  - {fileID: 11400000, guid: 375860008af8f7341bf812b646e51c42, type: 2}
+  - {fileID: 11400000, guid: 6960940a4a748e44cb43d5fa368bf205, type: 2}
   boardHandler: {fileID: 0}
   currentLevel: {fileID: 0}
 --- !u!4 &1228875858
