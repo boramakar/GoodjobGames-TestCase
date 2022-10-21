@@ -511,7 +511,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6c668dceacdbbe4449dc6041381e926e, type: 2}
   - {fileID: 11400000, guid: 375860008af8f7341bf812b646e51c42, type: 2}
   - {fileID: 11400000, guid: 6960940a4a748e44cb43d5fa368bf205, type: 2}
-  boardHandler: {fileID: 0}
   currentLevel: {fileID: 0}
 --- !u!4 &1228875858
 Transform:

@@ -64,6 +64,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5565178280623581735, guid: 89d9c9bfebb2e264bbd97cdc9e0f9ee0, type: 3}
+      propertyPath: tileType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5565178280623581735, guid: 89d9c9bfebb2e264bbd97cdc9e0f9ee0, type: 3}
       propertyPath: icons.Array.data[0]
       value: 
       objectReference: {fileID: 21300000, guid: d566436250fb02d46af972311ab0305e, type: 3}

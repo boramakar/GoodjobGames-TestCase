@@ -20,6 +20,7 @@ public class FadeoutTransitionHandler : MonoBehaviour, ITransitionHandler
 
     public void FadeOut(Action callback)
     {
+        Debug.Log("DOTween | FadeOut");
         var sequence = DOTween.Sequence();
         sequence.Append(blackout.DOColor(invisibleColor, _gameManager.parameters.fadeDuration))
             .AppendCallback(() => blackout.gameObject.SetActive(false))
@@ -29,6 +30,7 @@ public class FadeoutTransitionHandler : MonoBehaviour, ITransitionHandler
 
     public void FadeIn(Action callback)
     {
+        Debug.Log("DOTween | FadeIn");
         blackout.gameObject.SetActive(true);
         blackout.DOColor(visibleColor, _gameManager.parameters.fadeDuration).OnComplete(() => callback?.Invoke());
     }

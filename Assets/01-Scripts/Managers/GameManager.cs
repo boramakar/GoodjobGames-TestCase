@@ -56,7 +56,8 @@ public class GameManager : Singleton<GameManager>
 
     public void GameStart()
     {
-        _transitionHandler.FadeOut(EventManager.GameStart);
+        EventManager.GameStart();
+        _transitionHandler.FadeOut(null);
     }
 
     public void SetNextLevel(int levelID)

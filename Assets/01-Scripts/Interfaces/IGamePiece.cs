@@ -5,4 +5,6 @@ using UnityEngine;
 public interface IGamePiece
 {
     public void SetIcon(int iconIndex);
+    public TileType GetTileType();
+    void SetGroupIndex(int groupIndex);
 }

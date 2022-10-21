@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public class EventManager
 {
@@ -12,5 +13,26 @@ public class EventManager
     public static void GamePause()
     {
         GamePauseEvent?.Invoke();
+    }
+
+    public static event Action<int> PopTilesEvent;
+    public static void PopTiles(int groupIndex)
+    {
+        Debug.Log($"PopTilesEvent: {groupIndex}");
+        PopTilesEvent?.Invoke(groupIndex);
+    }
+
+    public static event Func<int, int, Vector3> GetBoardPositionEvent;
+    public static Vector3 GetBoardPosition(int column, int row)
+    {
+        var position = GetBoardPositionEvent?.Invoke(column, row);
+        return position ?? new Vector3(0, 0, -20);
+    }
+
+    public static event Func<int, int> GetGroupSizeEvent;
+    public static int GetGroupSize(int groupIndex)
+    {
+        var groupSize = GetGroupSizeEvent?.Invoke(groupIndex);
+        return groupSize ?? 0;
     }
 }
