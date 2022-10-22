@@ -216,7 +216,7 @@ public class BoardHandler : MonoBehaviour
         var groupSize = group.Count;
         for (int i = _levelData.iconLimits.Count - 1; i >= 0; i--)
         {
-            if (groupSize < _levelData.iconLimits[i]) continue;
+            if (groupSize <= _levelData.iconLimits[i]) continue;
             iconIndex = i;
             break;
         }
