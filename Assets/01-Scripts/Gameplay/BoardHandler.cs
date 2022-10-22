@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using HappyTroll;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class BoardHandler : MonoBehaviour
@@ -162,6 +163,23 @@ public class BoardHandler : MonoBehaviour
 
         _groups.Clear();
         _groupIndex = 0;
+    }
+
+    [Button]
+    private void ResetBoard()
+    {
+        for (int i = 0; i < _levelData.columns; i++)
+        {
+            for (int j = 0; j < _levelData.rows; j++)
+            {
+                var obj = _board[i][j].tile;
+                var poolIndex = (int) obj.GetComponent<IGamePiece>().GetTileType();
+                obj.GetComponent<IPoolObject>().Disable();
+                _pools[poolIndex].Release(obj.gameObject);
+            }
+        }
+        
+        FillBoard();
     }
 
     private void RecursivePartition(int column, int row)
