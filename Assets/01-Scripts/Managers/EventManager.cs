@@ -49,4 +49,10 @@ public class EventManager
         var rowIndex = AddGamePieceToBoardEvent?.Invoke(gamePiece, columnIndex);
         return rowIndex ?? -1;
     }
+    
+    public static event Action<bool> SetClickableStateEvent;
+    public static void SetClickableState(bool state)
+    {
+        SetClickableStateEvent?.Invoke(state);
+    }
 }

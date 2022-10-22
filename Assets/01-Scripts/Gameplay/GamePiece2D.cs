@@ -17,20 +17,24 @@ public class GamePiece2D : MonoBehaviour, IGamePiece, IPoolObject
 
     private GameManager _gameManager;
     private int _groupIndex;
+    private bool _isClickable;
 
     private void Awake()
     {
         _gameManager = GameManager.Instance;
+        _isClickable = true;
     }
 
     private void OnEnable()
     {
         EventManager.PopTilesEvent += PopTile;
+        EventManager.SetClickableStateEvent += SetClickableState;
     }
 
     private void OnDisable()
     {
         EventManager.PopTilesEvent -= PopTile;
+        EventManager.SetClickableStateEvent -= SetClickableState;
     }
 
     public void Enable()
@@ -67,23 +71,20 @@ public class GamePiece2D : MonoBehaviour, IGamePiece, IPoolObject
 
     public void OnClick()
     {
+        if (!_isClickable) return;
+        
         Debug.Log("Clicked Tile");
         var canPop = EventManager.GetGroupSize(_groupIndex) >= _gameManager.parameters.minGroupSize;
         if (canPop)
+        {
+            EventManager.SetClickableState(false);
             DOVirtual.DelayedCall(_gameManager.parameters.gamePieceMoveDelay, () => EventManager.PopTiles(_groupIndex));
+        }
         else
         {
             transform.DOShakeRotation(_gameManager.parameters.failShakeDuration, new Vector3(0, 0, 25), 20, 45, true,
                 ShakeRandomnessMode.Harmonic);
         }
-    }
-
-    private void PopTile(int groupIndex)
-    {
-        if (_groupIndex != groupIndex) return;
-        Debug.Log($"Popping Tile: {gameObject.name}");
-        //Play VFX
-        onPop?.Invoke();
     }
 
     public void MoveToPosition(Vector3 targetPosition, float delay)
@@ -98,5 +99,18 @@ public class GamePiece2D : MonoBehaviour, IGamePiece, IPoolObject
     public void PlayVFX()
     {
         Instantiate(vfxPrefab, transform.position, Quaternion.identity);
+    }
+
+    private void PopTile(int groupIndex)
+    {
+        if (_groupIndex != groupIndex) return;
+        Debug.Log($"Popping Tile: {gameObject.name}");
+        //Play VFX
+        onPop?.Invoke();
+    }
+
+    private void SetClickableState(bool clickableState)
+    {
+        _isClickable = clickableState;
     }
 }

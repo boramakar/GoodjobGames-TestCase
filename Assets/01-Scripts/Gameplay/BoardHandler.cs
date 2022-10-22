@@ -143,6 +143,11 @@ public class BoardHandler : MonoBehaviour
                 _groupIndex++;
             }
         }
+
+        if (_groups.Count == _levelData.columns * _levelData.rows)
+            ResetBoard();
+        else
+            EventManager.SetClickableState(true);
     }
 
     private void ResetGroups()
