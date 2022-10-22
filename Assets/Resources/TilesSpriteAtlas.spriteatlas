@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TilesSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: f6c39e03dc0f7f340ad12156e3c70000, type: 3}
+    - {fileID: 2800000, guid: a2ee323126f77774c9f139f027be0c09, type: 3}
+    - {fileID: 2800000, guid: ff7dced6fb0ddd249bd9ce280474cf4f, type: 3}
+    - {fileID: 2800000, guid: 47a5e3626c2e3464da3af484ece78920, type: 3}
+    - {fileID: 2800000, guid: 7f61f317db9a64f43ba5afe014623836, type: 3}
+    - {fileID: 2800000, guid: be77668bb5d4e1141a4e5e1c054e628f, type: 3}
+    - {fileID: 2800000, guid: 6da4894e58ba3de439bdcd010d352c92, type: 3}
+    - {fileID: 2800000, guid: e168262682b3c094d8ce91ecf031d2d3, type: 3}
+    - {fileID: 2800000, guid: d566436250fb02d46af972311ab0305e, type: 3}
+    - {fileID: 2800000, guid: 460bfdae729bb2b4b8bb65ffadbbb4bb, type: 3}
+    - {fileID: 2800000, guid: 6f6c3eff45a7de8409b679bdb2e53339, type: 3}
+    - {fileID: 2800000, guid: 285097b2df949d1478628d8a847ca338, type: 3}
+    - {fileID: 2800000, guid: d5ad13599fb31cf43992a55a948ca48e, type: 3}
+    - {fileID: 2800000, guid: 22e375505cd4eed45bf0f4c4be3ca547, type: 3}
+    - {fileID: 2800000, guid: 902b4cb843ce67d4bb36551b9a492364, type: 3}
+    - {fileID: 2800000, guid: 4e0bf465d518e614a8bbbe0fe2f433ea, type: 3}
+    - {fileID: 2800000, guid: 8ae8bc8b214a3fa4e956115db1880a44, type: 3}
+    - {fileID: 2800000, guid: 3fdd1e8832b78934498670add7027879, type: 3}
+    - {fileID: 2800000, guid: cf844d31b6658814393e0da6de781436, type: 3}
+    - {fileID: 2800000, guid: 31ed6e25cd6e5fa4f8b2a69eb9705afb, type: 3}
+    - {fileID: 2800000, guid: 6e89b178533f27c43a480921717e50aa, type: 3}
+    - {fileID: 2800000, guid: bdfddc4d4cdc09541b8aa4e3056a817f, type: 3}
+    - {fileID: 2800000, guid: cded91dec0890ce4dac37a602520a8f0, type: 3}
+    - {fileID: 2800000, guid: 23af00d3e62d8044caddc00e612d57a4, type: 3}
+    - {fileID: 2800000, guid: 9215e39409628464fb444f9b7374885a, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 22e375505cd4eed45bf0f4c4be3ca547, type: 3}
+  - {fileID: 21300000, guid: a2ee323126f77774c9f139f027be0c09, type: 3}
+  - {fileID: 21300000, guid: cf844d31b6658814393e0da6de781436, type: 3}
+  - {fileID: 21300000, guid: d566436250fb02d46af972311ab0305e, type: 3}
+  - {fileID: 21300000, guid: 47a5e3626c2e3464da3af484ece78920, type: 3}
+  - {fileID: 21300000, guid: 285097b2df949d1478628d8a847ca338, type: 3}
+  - {fileID: 21300000, guid: f6c39e03dc0f7f340ad12156e3c70000, type: 3}
+  - {fileID: 21300000, guid: 23af00d3e62d8044caddc00e612d57a4, type: 3}
+  - {fileID: 21300000, guid: 9215e39409628464fb444f9b7374885a, type: 3}
+  - {fileID: 21300000, guid: 31ed6e25cd6e5fa4f8b2a69eb9705afb, type: 3}
+  - {fileID: 21300000, guid: 4e0bf465d518e614a8bbbe0fe2f433ea, type: 3}
+  - {fileID: 21300000, guid: e168262682b3c094d8ce91ecf031d2d3, type: 3}
+  - {fileID: 21300000, guid: ff7dced6fb0ddd249bd9ce280474cf4f, type: 3}
+  - {fileID: 21300000, guid: 7f61f317db9a64f43ba5afe014623836, type: 3}
+  - {fileID: 21300000, guid: 6e89b178533f27c43a480921717e50aa, type: 3}
+  - {fileID: 21300000, guid: 3fdd1e8832b78934498670add7027879, type: 3}
+  - {fileID: 21300000, guid: 902b4cb843ce67d4bb36551b9a492364, type: 3}
+  - {fileID: 21300000, guid: d5ad13599fb31cf43992a55a948ca48e, type: 3}
+  - {fileID: 21300000, guid: be77668bb5d4e1141a4e5e1c054e628f, type: 3}
+  - {fileID: 21300000, guid: 8ae8bc8b214a3fa4e956115db1880a44, type: 3}
+  - {fileID: 21300000, guid: bdfddc4d4cdc09541b8aa4e3056a817f, type: 3}
+  - {fileID: 21300000, guid: 6da4894e58ba3de439bdcd010d352c92, type: 3}
+  - {fileID: 21300000, guid: 460bfdae729bb2b4b8bb65ffadbbb4bb, type: 3}
+  - {fileID: 21300000, guid: cded91dec0890ce4dac37a602520a8f0, type: 3}
+  - {fileID: 21300000, guid: 6f6c3eff45a7de8409b679bdb2e53339, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Purple_A
+  - Blue_A
+  - Red_B
+  - Pink_Default
+  - Blue_C
+  - Pink_C
+  - Blue_Default
+  - Yellow_C
+  - GoldenBorder
+  - Red_C
+  - Purple_C
+  - Green_C
+  - Blue_B
+  - Green_Default
+  - Yellow_Default
+  - Red_A
+  - Purple_B
+  - Purple_Default
+  - Green_A
+  - Red_Default
+  - Yellow_A
+  - Green_B
+  - Pink_A
+  - Yellow_B
+  - Pink_B
+  m_RenderDataMap: {}
+  m_Tag: TilesSpriteAtlas
+  m_IsVariant: 0
