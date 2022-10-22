@@ -35,13 +35,13 @@ namespace HappyTroll
             {
                 obj = _inactiveObjects[0];
                 _inactiveObjects.Remove(obj);
-                _activeObjects.Add(obj);
             }
             else
             {
                 obj = Instantiate(poolObject);
             }
 
+            _activeObjects.Add(obj);
             obj.GetComponent<IPoolObject>().Enable();
             return obj;
         }
@@ -54,6 +54,10 @@ namespace HappyTroll
                 _inactiveObjects.Add(poolElement);
                 poolElement.transform.parent = unusedParent;
                 poolElement.transform.localPosition = Vector3.zero;
+            }
+            else
+            {
+                Debug.LogError($"Attempting to release an object that doesn't belong to the pool. PoolObject: {poolObject.name} - Attempted: {poolElement.name}");
             }
         }
     }
