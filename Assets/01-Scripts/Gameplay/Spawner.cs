@@ -25,6 +25,7 @@ public class Spawner : MonoBehaviour
         {
             var tileType = Random.Range(0, _gameManager.currentLevel.colors);
             var gamePiece = EventManager.GetGamePiece(tileType);
+            gamePiece.GetComponent<IGamePiece>().StopMovement();
             gamePiece.transform.position = transform.position + _initialOffset +
                                            Vector3.up * (i * 2 * _gameManager.parameters.tileOffsetY);
             var rowIndex = EventManager.AddGamePieceToBoard(gamePiece, _columnIndex);

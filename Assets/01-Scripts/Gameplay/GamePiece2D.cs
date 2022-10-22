@@ -96,6 +96,11 @@ public class GamePiece2D : MonoBehaviour, IGamePiece, IPoolObject
         transform.DOMove(targetPosition, duration).SetEase(Ease.OutExpo).SetDelay(delay);
     }
 
+    public void StopMovement()
+    {
+        transform.DOComplete();
+    }
+
     public void PlayVFX()
     {
         Instantiate(vfxPrefab, transform.position, Quaternion.identity);

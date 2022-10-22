@@ -8,4 +8,5 @@ public interface IGamePiece
     public TileType GetTileType();
     void SetGroupIndex(int groupIndex);
     public void MoveToPosition(Vector3 targetPosition, float delay);
+    public void StopMovement();
 }
