@@ -10,6 +10,7 @@ public class GamePiece2D : MonoBehaviour, IGamePiece, IPoolObject
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private GameObject vfxPrefab;
     [SerializeField] private TileType tileType;
     [SerializeField] private List<Sprite> icons;
     [SerializeField] private UnityEvent onPop;
@@ -88,8 +89,14 @@ public class GamePiece2D : MonoBehaviour, IGamePiece, IPoolObject
     public void MoveToPosition(Vector3 targetPosition, float delay)
     {
         var distance = (targetPosition - transform.position).magnitude;
+        if (distance == 0) return;
         var duration = distance / _gameManager.parameters.tileMoveSpeed;
         Debug.Log($"MovingTile - Distance: {distance} - Duration: {duration}");
         transform.DOMove(targetPosition, duration).SetEase(Ease.OutExpo).SetDelay(delay);
+    }
+
+    public void PlayVFX()
+    {
+        Instantiate(vfxPrefab, transform.position, Quaternion.identity);
     }
 }
