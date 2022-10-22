@@ -35,4 +35,18 @@ public class EventManager
         var groupSize = GetGroupSizeEvent?.Invoke(groupIndex);
         return groupSize ?? 0;
     }
+
+    public static event Func<int, GameObject> GetGamePieceEvent;
+    public static GameObject GetGamePiece(int tileType)
+    {
+        var obj = GetGamePieceEvent?.Invoke(tileType);
+        return obj;
+    }
+
+    public static event Func<GameObject, int, int> AddGamePieceToBoardEvent;
+    public static int AddGamePieceToBoard(GameObject gamePiece, int columnIndex)
+    {
+        var rowIndex = AddGamePieceToBoardEvent?.Invoke(gamePiece, columnIndex);
+        return rowIndex ?? -1;
+    }
 }

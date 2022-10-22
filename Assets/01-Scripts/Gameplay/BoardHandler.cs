@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using HappyTroll;
 using UnityEngine;
 
@@ -17,12 +18,11 @@ public class BoardHandler : MonoBehaviour
     private ObjectPool[] _pools;
     private Spawner[] _spawners;
     private int _groupIndex;
-    private TileType _tileType;
+    private TileType _groupTileType;
 
     private void Awake()
     {
         _gameManager = GameManager.Instance;
-        _groupIndex = 0;
         Initialize();
     }
 
@@ -30,20 +30,24 @@ public class BoardHandler : MonoBehaviour
     {
         EventManager.GetBoardPositionEvent += GetBoardPosition;
         EventManager.GetGroupSizeEvent += GetGroupSize;
-        EventManager.PopTilesEvent += ReleaseGamePieces;
+        EventManager.PopTilesEvent += HandleTilePop;
+        EventManager.GetGamePieceEvent += GetGamePiece;
+        EventManager.AddGamePieceToBoardEvent += AddPieceToBoard;
     }
 
     private void OnDisable()
     {
         EventManager.GetBoardPositionEvent -= GetBoardPosition;
         EventManager.GetGroupSizeEvent -= GetGroupSize;
-        EventManager.PopTilesEvent += ReleaseGamePieces;
+        EventManager.PopTilesEvent -= HandleTilePop;
+        EventManager.GetGamePieceEvent -= GetGamePiece;
+        EventManager.AddGamePieceToBoardEvent -= AddPieceToBoard;
     }
 
     private void Start()
     {
         FillBoard();
-        GroupTiles();
+        //GroupTiles();
         _gameManager.GameStart();
     }
 
@@ -51,6 +55,7 @@ public class BoardHandler : MonoBehaviour
     {
         Debug.Log("Initializing Board");
         _levelData = _gameManager.currentLevel;
+        _groupIndex = 0;
 
         var initialOffsetX = -_gameManager.parameters.tileOffsetX * (_levelData.columns - 1);
         var initialOffsetY = -_gameManager.parameters.tileOffsetY * (_levelData.rows - 1);
@@ -58,6 +63,8 @@ public class BoardHandler : MonoBehaviour
         _board = new List<List<CellData>>(_levelData.columns);
         for (int i = 0; i < _levelData.columns; i++)
         {
+            var col = new GameObject($"Col {i}");
+            col.transform.parent = transform;
             _board.Add(new List<CellData>(_levelData.rows));
             for (int j = 0; j < _levelData.rows; j++)
             {
@@ -83,9 +90,10 @@ public class BoardHandler : MonoBehaviour
         _spawners = new Spawner[_levelData.columns];
         for (int i = 0; i < _levelData.columns; i++)
         {
-            var obj = new GameObject();
-            _spawners[i] = obj.AddComponent<Spawner>();
+            var obj = new GameObject($"Spawner {i}");
             obj.transform.parent = spawnersParent;
+            obj.transform.position = _board[i][_board[i].Count - 1].position;
+            _spawners[i] = obj.AddComponent<Spawner>();
         }
 
         borderRenderer.size = new Vector2(
@@ -101,21 +109,26 @@ public class BoardHandler : MonoBehaviour
         Debug.Log("Filling Board");
         for (int i = 0; i < _levelData.columns; i++)
         {
-            //_spawners[i].Spawn(_board[i], _levelData.rows);
+            _spawners[i].Spawn(_levelData.rows);
 
+            /*
             var gamePieceIndex = i % _levelData.colors;
             for (int j = 0; j < _levelData.rows; j++)
             {
                 var obj = Instantiate(_gameManager.parameters.gamePieces[gamePieceIndex], _board[i][j].position,
-                    Quaternion.identity, transform);
+                    Quaternion.identity, transform.GetChild(i));
                 _board[i][j].tile = obj;
             }
+            */
         }
+
+        MoveTilesToPlace();
     }
 
     private void GroupTiles()
     {
         Debug.Log("Grouping Tiles");
+        ResetGroups();
         for (int i = 0; i < _levelData.columns; i++)
         {
             for (int j = 0; j < _levelData.rows; j++)
@@ -123,7 +136,7 @@ public class BoardHandler : MonoBehaviour
                 if (_board[i][j].groupIndex != -1) continue;
                 var newGroup = new List<GameObject>();
                 _groups.Add(_groupIndex, newGroup);
-                _tileType = _board[i][j].tile.GetComponent<IGamePiece>().GetTileType();
+                _groupTileType = _board[i][j].tile.GetComponent<IGamePiece>().GetTileType();
                 RecursivePartition(i, j);
                 Debug.Log($"Setting Tile Data: {_groupIndex}");
                 SetTileData(newGroup);
@@ -132,27 +145,41 @@ public class BoardHandler : MonoBehaviour
         }
     }
 
+    private void ResetGroups()
+    {
+        for (int i = 0; i < _levelData.columns; i++)
+        {
+            for (int j = 0; j < _levelData.rows; j++)
+            {
+                _board[i][j].groupIndex = -1;
+            }
+        }
+
+        _groups.Clear();
+        _groupIndex = 0;
+    }
+
     private void RecursivePartition(int column, int row)
     {
         if (column < 0 || column >= _levelData.columns || row < 0 || row >= _levelData.rows) return; // Out of bounds
-        
+
         var cellData = _board[column][row];
         if (cellData.groupIndex == _groupIndex) return; // Visited cell
 
         var tileType = cellData.tile.GetComponent<IGamePiece>().GetTileType();
-        if (tileType != _tileType) return; // Different type
+        if (tileType != _groupTileType) return; // Different type
 
         var oldGroupIndex = cellData.groupIndex;
         cellData.groupIndex = _groupIndex;
         _groups[_groupIndex].Add(cellData.tile);
-        
+
         if (oldGroupIndex != -1)
         {
             _groups[oldGroupIndex].Remove(cellData.tile);
             if (_groups[oldGroupIndex].Count == 0)
                 _groups.Remove(oldGroupIndex);
         }
-        
+
         //Check adjacent tiles
         RecursivePartition(column + 1, row);
         RecursivePartition(column - 1, row);
@@ -179,6 +206,35 @@ public class BoardHandler : MonoBehaviour
         }
     }
 
+    private void SpawnTiles()
+    {
+        for (int i = 0; i < _levelData.columns; i++)
+        {
+            var missingTiles = _levelData.rows - transform.GetChild(i).childCount;
+            if (missingTiles <= 0) continue;
+            _spawners[i].Spawn(missingTiles);
+        }
+
+        MoveTilesToPlace();
+    }
+
+    private void MoveTilesToPlace()
+    {
+        for (int i = 0; i < _levelData.columns; i++)
+        {
+            for (int j = 0; j < _levelData.rows; j++)
+            {
+                _board[i][j].tile = transform.GetChild(i).GetChild(j).gameObject;
+                _board[i][j].tile.GetComponent<IGamePiece>().MoveToPosition(_board[i][j].position,
+                    _gameManager.parameters.gamePieceMoveDelay +
+                    _gameManager.parameters.gamePieceCascadingMoveDelay * j);
+            }
+        }
+        
+        DOVirtual.DelayedCall(
+            _gameManager.parameters.groupingDelay, GroupTiles);
+    }
+
     private Vector3 GetBoardPosition(int column, int row)
     {
         return _board[column][row].position;
@@ -190,13 +246,37 @@ public class BoardHandler : MonoBehaviour
         return _groups[groupIndex].Count;
     }
 
-    private void ReleaseGamePieces(int groupIndex)
+    private void HandleTilePop(int groupIndex)
     {
-        foreach (var obj in _groups[groupIndex])
+        DOVirtual.DelayedCall(_gameManager.parameters.spawnDelay, () =>
         {
-            var poolIndex = (int) obj.GetComponent<IGamePiece>().GetTileType();
-            _pools[poolIndex].Release(obj);
+            foreach (var obj in _groups[groupIndex])
+            {
+                var poolIndex = (int) obj.GetComponent<IGamePiece>().GetTileType();
+                _pools[poolIndex].Release(obj);
+            }
+
+            _groups.Remove(groupIndex);
+
+            SpawnTiles();
+        });
+    }
+
+    private GameObject GetGamePiece(int tileType)
+    {
+        return _pools[tileType].Get();
+    }
+
+    private int AddPieceToBoard(GameObject gamePiece, int columnIndex)
+    {
+        var rowIndex = transform.GetChild(columnIndex).childCount;
+        if (rowIndex >= _levelData.rows)
+        {
+            throw new ArgumentOutOfRangeException($"Trying to add game piece to full column: {columnIndex}");
         }
-        _groups.Remove(groupIndex);
+
+        _board[columnIndex][rowIndex].tile = gamePiece;
+        gamePiece.transform.parent = transform.GetChild(columnIndex);
+        return rowIndex;
     }
 }

@@ -27,3 +27,12 @@ MonoBehaviour:
   tileOffsetX: 1.12
   tileOffsetY: 1.1
   tileOffsetZ: -0.01
+  cameraSizeBase: 5
+  cameraSizeOffset: 2.5
+  tileMoveSpeed: 20
+  minGroupSize: 2
+  gamePieceMoveDelay: 0.25
+  gamePieceCascadingMoveDelay: 0
+  failShakeDuration: 0.25
+  groupingDelay: 0.8
+  spawnDelay: 0.1

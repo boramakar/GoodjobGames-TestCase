@@ -12,6 +12,12 @@ namespace HappyTroll
 
         private List<GameObject> _activeObjects;
         private List<GameObject> _inactiveObjects;
+        private int _poolSize;
+
+        private void Awake()
+        {
+            _poolSize = 0;
+        }
 
         public void Initialize(int targetSize)
         {
@@ -23,8 +29,10 @@ namespace HappyTroll
             for (var i = 0; i < targetSize; i++)
             {
                 var obj = Instantiate(poolObject, unusedParent);
+                obj.name = $"{poolObject.name} - {_poolSize}";
                 obj.GetComponent<IPoolObject>().Disable();
                 _inactiveObjects.Add(obj);
+                _poolSize++;
             }
         }
 
@@ -39,6 +47,8 @@ namespace HappyTroll
             else
             {
                 obj = Instantiate(poolObject);
+                obj.name = $"{poolObject.name} - {_poolSize}";
+                _poolSize++;
             }
 
             _activeObjects.Add(obj);

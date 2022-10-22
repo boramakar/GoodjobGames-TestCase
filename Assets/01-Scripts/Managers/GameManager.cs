@@ -8,14 +8,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [Required]
-    public GameParameters parameters;
+    [Required] public GameParameters parameters;
     public List<LevelParameters> levelParameters;
     public LevelParameters currentLevel;
 
     public ITransitionHandler _transitionHandler;
     private string _nextScene;
-    
+
     private void Awake()
     {
         if (FindObjectsOfType<GameManager>().Length > 1)
@@ -28,6 +27,12 @@ public class GameManager : Singleton<GameManager>
         }
 
         _transitionHandler = GetComponentInChildren<ITransitionHandler>();
+
+#if DEBUG
+        Debug.unityLogger.logEnabled = true;
+#else
+        Debug.unityLogger.logEnabled = false;
+#endif
     }
 
     private void Start()
